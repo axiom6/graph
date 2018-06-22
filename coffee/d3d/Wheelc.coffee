@@ -6,9 +6,8 @@
 
 class Wheelc extends Radar
 
-  constructor:( stream, ui, d3d ) ->
-    super(      stream, ui, d3d, false )
-    @ui.addContent( 'Wheelc', @ )
+  constructor:( stream, ui, d3d, name ) ->
+    super(      stream, ui, d3d, name )
 
     @quadrants = [
       { name1:"Red",        key:  '0', color:"hsl(  0,100%,50%)", beg:-15, end: 15 }
@@ -43,17 +42,15 @@ class Wheelc extends Radar
 
     @assoc = @assocQuad(@quadrants)
 
-  readyPane:() ->
-    $svg = super.readyPane()
+  ready:( cname ) ->
+    Util.noop( cname )
+    $svg = super.ready()
     dr = ( @r100 - @r40 ) / 30
     @quads( @hueQuads(10), @r80, @r100 )
     @hsvWedges(     5, dr, @r40, @r100 )
     @paletteWedges( 5, dr, @r40, @r100 )
     #@paletteLogs()
     $svg
-
-  readyView:() ->
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Wheelc</h1>""" )
 
   hueQuads:(inc) ->
     a = []

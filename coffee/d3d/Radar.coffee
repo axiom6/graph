@@ -1,19 +1,24 @@
 
-`import Util from'../util/Util.js'`
-`import UI   from'../ui/UI.js'`
-`import Vis  from'../vis/Vis.js'`
+`import Util from '../util/Util.js'`
+`import UI   from '../ui/UI.js'`
+`import Vis  from '../vis/Vis.js'`
+`import Base from '../ui/Base.js'`
 
-class Radar
+class Radar extends Base
 
-  constructor:( @stream, @ui, @d3d, @isRadar=true ) ->
-    @ui.addContent( 'Radar', @ )
+  constructor:( stream, ui, @d3d, name ) ->
+    super( stream, ui, name )
     @criterias = [                       # Grade  Percentile
       { name:"Adopt",  radius:@r40 }     #   A     90-100%
       { name:"Trial",  radius:@r60 }     #   B     80-89%
       { name:"Access", radius:@r80 }     #   C     70-79%
       { name:"Hold",   radius:@r100 } ]  #   D     60-69%
 
-  readyPane:() =>
+  isRadar:() ->
+    @name is 'Radar'
+
+  ready:( cname ) =>
+    Util.noop( cname )
     geo     = @pane.geo
     @graph  = @d3d.createGraph( @pane )
     @g      = @graph.g
@@ -32,13 +37,10 @@ class Radar
     @p60    = -Math.sin( Vis.rad(60) )
     @attrG( @g )
 
-    UI.readJSON( 'json/Quad.json', (quads) => @doQuads(quads) ) if @isRadar
-    UI.readJSON( 'json/Tech.json', (techs) => @doTechs(techs) ) if @isRadar
+    UI.readJSON( 'json/Quad.json', (quads) => @doQuads(quads) ) if @isRadar()
+    UI.readJSON( 'json/Tech.json', (techs) => @doTechs(techs) ) if @isRadar()
 
     @graph.$svg
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Radar</h1>""" )
 
   doQuads:( quads ) =>
     @quads( Util.toArray(quads), @r08, @r100 )
@@ -82,7 +84,7 @@ class Radar
      .attr("cx",@x0).attr("cy",@y0)
      .attr("fill","none").attr("stroke","gray").attr("stroke-width",1)
      .attr("r", (criteria) -> criteria.radius )
-    if( @isRadar )
+    if( @isRadar() )
       g.append("svg:text")
        .attr("x",  @x0 )
        .attr("y",  (criteria) => @y0 - criteria.radius )
@@ -107,7 +109,7 @@ class Radar
 
     n   = quadrants.length
     dif = 360/n
-    beg = if @isRadar then dif/2 else 0
+    beg = if @isRadar() then dif/2 else 0
     for i in[0...n]
       name1 = quadrants[i].name1
       if( name1? && name1.length>0  )

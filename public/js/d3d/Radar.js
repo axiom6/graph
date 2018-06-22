@@ -1,12 +1,14 @@
-import Util from'../util/Util.js';
-import UI   from'../ui/UI.js';
-import Vis  from'../vis/Vis.js';
-var Radar;
+import Util from '../util/Util.js';
+import UI   from '../ui/UI.js';
+import Vis  from '../vis/Vis.js';
+import Base from '../ui/Base.js';
+var Radar,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
-Radar = class Radar {
-  constructor(stream, ui, d3d, isRadar = true) {
-    this.readyPane = this.readyPane.bind(this);
-    this.readyView = this.readyView.bind(this);
+Radar = class Radar extends Base {
+  constructor(stream, ui, d3d, name) {
+    super(stream, ui, name);
+    this.ready = this.ready.bind(this);
     this.doQuads = this.doQuads.bind(this);
     this.doTechs = this.doTechs.bind(this);
     this.attrG = this.attrG.bind(this);
@@ -25,11 +27,7 @@ Radar = class Radar {
     
     // Plot tech points as either dots or triangles and add drag behavior. Add tech title tool tip
     this.pts = this.pts.bind(this);
-    this.stream = stream;
-    this.ui = ui;
     this.d3d = d3d;
-    this.isRadar = isRadar;
-    this.ui.addContent('Radar', this);
     this.criterias = [ // Grade  Percentile
       {
         name: "Adopt",
@@ -50,8 +48,14 @@ Radar = class Radar {
     ];
   }
 
-  readyPane() {
+  isRadar() {
+    return this.name === 'Radar';
+  }
+
+  ready(cname) {
     var geo;
+    boundMethodCheck(this, Radar);
+    Util.noop(cname);
     geo = this.pane.geo;
     this.graph = this.d3d.createGraph(this.pane);
     this.g = this.graph.g;
@@ -77,12 +81,12 @@ Radar = class Radar {
     this.r2 = this.s2 * this.s2 * 60.0;
     this.p60 = -Math.sin(Vis.rad(60));
     this.attrG(this.g);
-    if (this.isRadar) {
+    if (this.isRadar()) {
       UI.readJSON('json/Quad.json', (quads) => {
         return this.doQuads(quads);
       });
     }
-    if (this.isRadar) {
+    if (this.isRadar()) {
       UI.readJSON('json/Tech.json', (techs) => {
         return this.doTechs(techs);
       });
@@ -90,29 +94,30 @@ Radar = class Radar {
     return this.graph.$svg;
   }
 
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Radar</h1>");
-  }
-
   doQuads(quads) {
+    boundMethodCheck(this, Radar);
     this.quads(Util.toArray(quads), this.r08, this.r100);
     this.circles(this.criterias);
   }
 
   doTechs(techs) {
+    boundMethodCheck(this, Radar);
     this.pts(Util.toArray(techs));
   }
 
   attrG(g) {
+    boundMethodCheck(this, Radar);
     return g.attr("style", `background${d3.rgb(250, 240, 200)}; overflow:visible;`);
   }
 
   prompt() {
+    boundMethodCheck(this, Radar);
     return this.g.append("svg:text").text("Drag and drop the blue dots to target technologies as Adopt Trial Access or Hold").attr("x", 20).attr("y", 20).attr("font-family", "Arial").attr("font-size", "14px");
   }
 
   grid(da, dr, ba = 0, ea = 360, br = this.r40, er = this.r100) {
     var ang, cos, j, k, l, r, ref, ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8, sin;
+    boundMethodCheck(this, Radar);
     for (ang = j = ref = ba, ref1 = ea, ref2 = da; ref2 !== 0 && (ref2 > 0 ? j < ref1 : j > ref1); ang = j += ref2) {
       cos = Math.cos(this.rad(ang));
       sin = Math.sin(this.rad(ang));
@@ -127,16 +132,18 @@ Radar = class Radar {
   }
 
   circle(r) {
+    boundMethodCheck(this, Radar);
     this.g.append("svg:circle").attr("cx", this.x0).attr("cy", this.y0).attr("fill", "none").attr("stroke", "#CCCCCC").attr("stroke-width", 1).attr("r", r);
   }
 
   circles(criterias) {
     var g;
+    boundMethodCheck(this, Radar);
     g = this.g.selectAll("g").data(criterias).enter().append("svg:g");
     g.append("svg:circle").attr("cx", this.x0).attr("cy", this.y0).attr("fill", "none").attr("stroke", "gray").attr("stroke-width", 1).attr("r", function(criteria) {
       return criteria.radius;
     });
-    if (this.isRadar) {
+    if (this.isRadar()) {
       g.append("svg:text").attr("x", this.x0).attr("y", (criteria) => {
         return this.y0 - criteria.radius;
       }).text((criteria) => {
@@ -147,6 +154,7 @@ Radar = class Radar {
 
   quads(quadrants, r1, r2) {
     var ang, beg, cos, dif, i, j, k, n, name1, name2s, ref, ref1, sin;
+    boundMethodCheck(this, Radar);
     this.wedges(quadrants, this.inner, r2);
     // @grid((@r100-@r40)/15,5)
     n = quadrants.length * 2;
@@ -168,7 +176,7 @@ Radar = class Radar {
     }
     n = quadrants.length;
     dif = 360 / n;
-    beg = this.isRadar ? dif / 2 : 0;
+    beg = this.isRadar() ? dif / 2 : 0;
     for (i = k = 0, ref1 = n; (0 <= ref1 ? k < ref1 : k > ref1); i = 0 <= ref1 ? ++k : --k) {
       name1 = quadrants[i].name1;
       if ((name1 != null) && name1.length > 0) {
@@ -179,6 +187,7 @@ Radar = class Radar {
 
   quadName(r, ang, name) {
     var cx, cy, dy, rot;
+    boundMethodCheck(this, Radar);
     cx = this.x0 + r * Math.cos(this.rad(ang));
     cy = this.y0 + r * Math.sin(this.rad(ang));
     rot = `rotate(${this.angleQuad(ang)},${cx},${cy})`;
@@ -188,6 +197,7 @@ Radar = class Radar {
 
   degName(r, ang) {
     var cx, cy, rotate;
+    boundMethodCheck(this, Radar);
     cx = this.x0 + r * Math.cos(this.rad(ang));
     cy = this.y0 + r * Math.sin(this.rad(ang));
     rotate = `rotate(${this.angleQuad(ang)},${cx},${cy})`;
@@ -196,12 +206,14 @@ Radar = class Radar {
 
   wedge(fill, g, r1, r2, a1, a2) {
     var arc;
+    boundMethodCheck(this, Radar);
     arc = d3.arc().innerRadius(r1).outerRadius(r2).startAngle(this.radD3(a1)).endAngle(this.radD3(a2));
     g.append("svg:path").attr("d", arc).attr("fill", fill).attr("stroke", "none").attr("transform", `translate(${this.x0},${this.y0})`);
   }
 
   wedges(quadrants, r1, r2) {
     var wedge;
+    boundMethodCheck(this, Radar);
     wedge = d3.arc().innerRadius(r1).outerRadius(r2).startAngle((d) => {
       return this.radD3(d.beg);
     }).endAngle((d) => {
@@ -213,6 +225,7 @@ Radar = class Radar {
   }
 
   symType(tech) {
+    boundMethodCheck(this, Radar);
     if ((tech.changed != null) && tech.changed === '+') {
       return "triangle-up";
     } else {
@@ -222,6 +235,7 @@ Radar = class Radar {
 
   pts(techs) {
     var dot, g;
+    boundMethodCheck(this, Radar);
     g = this.g.selectAll("g").data(techs).enter().append("svg:g");
     dot = g.append("svg:circle").attr("id", (tech) => {
       return this.techId(tech);

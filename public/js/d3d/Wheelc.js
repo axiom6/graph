@@ -5,9 +5,8 @@ import Palettes from '../d3d/Palettes.js';
 var Wheelc;
 
 Wheelc = class Wheelc extends Radar {
-  constructor(stream, ui, d3d) {
-    super(stream, ui, d3d, false);
-    this.ui.addContent('Wheelc', this);
+  constructor(stream, ui, d3d, name) {
+    super(stream, ui, d3d, name);
     this.quadrants = [
       {
         name1: "Red",
@@ -204,19 +203,16 @@ Wheelc = class Wheelc extends Radar {
     this.assoc = this.assocQuad(this.quadrants);
   }
 
-  readyPane() {
+  ready(cname) {
     var $svg, dr;
-    $svg = super.readyPane();
+    Util.noop(cname);
+    $svg = super.ready();
     dr = (this.r100 - this.r40) / 30;
     this.quads(this.hueQuads(10), this.r80, this.r100);
     this.hsvWedges(5, dr, this.r40, this.r100);
     this.paletteWedges(5, dr, this.r40, this.r100);
     //@paletteLogs()
     return $svg;
-  }
-
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Wheelc</h1>");
   }
 
   hueQuads(inc) {

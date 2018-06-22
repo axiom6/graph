@@ -1,13 +1,15 @@
 
-`import Util from'../util/Util.js'`
-`import Vis  from'../vis/Vis.js'`
+`import Util from '../util/Util.js'`
+`import Vis  from '../vis/Vis.js'`
+`import Base from '../ui/Base.js'`
 
-class Axes
+class Axes extends Base
 
-  constructor:( @stream, @ui, @d3d ) ->
-    @ui.addContent( 'Axes', @ )
+  constructor:( stream, ui, @d3d ) ->
+    super( stream, ui, 'Axes' )
 
-  readyPane:() =>
+  ready:( cname ) =>
+    Util.noop( cname )
     geo     = @pane.geo
     @graph  = @d3d.createGraph( @pane )
     @margin = { left:40, top:40, right:40, bottom:40 }
@@ -29,9 +31,6 @@ class Axes
     $('path.domain').hide()
     #@d3d.transform( @graph.$s, @g, geo.w/2, geo.h/2, geo.s )
     @graph.$svg
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Axes</h1>""" )
 
   createXScale:( xObj, width ) ->
     d3.scaleLinear().domain([xObj.x1,xObj.x2]).range([0,width]).clamp(true)

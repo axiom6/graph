@@ -1,19 +1,20 @@
-import Util from'../util/Util.js';
-import Vis  from'../vis/Vis.js';
-var Axes;
+import Util from '../util/Util.js';
+import Vis  from '../vis/Vis.js';
+import Base from '../ui/Base.js';
+var Axes,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
-Axes = class Axes {
+Axes = class Axes extends Base {
   constructor(stream, ui, d3d) {
-    this.readyPane = this.readyPane.bind(this);
-    this.readyView = this.readyView.bind(this);
-    this.stream = stream;
-    this.ui = ui;
+    super(stream, ui, 'Axes');
+    this.ready = this.ready.bind(this);
     this.d3d = d3d;
-    this.ui.addContent('Axes', this);
   }
 
-  readyPane() {
+  ready(cname) {
     var geo;
+    boundMethodCheck(this, Axes);
+    Util.noop(cname);
     geo = this.pane.geo;
     this.graph = this.d3d.createGraph(this.pane);
     this.margin = {
@@ -50,10 +51,6 @@ Axes = class Axes {
     $('path.domain').hide();
     //@d3d.transform( @graph.$s, @g, geo.w/2, geo.h/2, geo.s )
     return this.graph.$svg;
-  }
-
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Axes</h1>");
   }
 
   createXScale(xObj, width) {

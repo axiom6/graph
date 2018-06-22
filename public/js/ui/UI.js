@@ -2,21 +2,21 @@ import Util from '../util/Util.js';
 import Navb from '../ui/Navb.js';
 import Tocs from '../ui/Tocs.js';
 import View from '../ui/View.js';
+import Page from '../ui/Page.js';
 var UI,
   hasProp = {}.hasOwnProperty;
 
 UI = (function() {
   class UI {
-    constructor(stream, jsonPath, planeName, navbs = null, prac = null) {
+    constructor(stream, jsonPath, planeName = 'None', navbs = null) {
       var callback;
+      this.pagesReady = this.pagesReady.bind(this);
       this.resize = this.resize.bind(this);
-      this.contentReady = this.contentReady.bind(this);
       this.stream = stream;
       this.jsonPath = jsonPath;
       this.planeName = planeName;
       this.navbs = navbs;
-      this.prac = prac;
-      this.contents = {};
+      this.pages = {};
       callback = (data) => {
         this.specs = this.createSpecs(data);
         if (this.navbs != null) {
@@ -29,7 +29,48 @@ UI = (function() {
         return this.ready();
       };
       UI.readJSON(this.jsonPath, callback);
-      UI.ui = this;
+    }
+
+    addPage(name, page) {
+      return this.pages[name] = page;
+    }
+
+    ready() {
+      $('#' + this.htmlId('App')).html(this.html());
+      if (this.navbs != null) {
+        this.navb.ready();
+      }
+      if (UI.hasTocs) {
+        this.tocs.ready();
+      }
+      this.view.ready();
+      this.stream.publish("Ready", "Ready"); // Just notification. No topic
+    }
+
+    createContent(pane, page, cname) {
+      if (this.prac != null) {
+        return this.prac.createContent(pane, page, cname);
+      } else {
+        return page.createContent(cname);
+      }
+    }
+
+    pagesReady(cname) {
+      var name, page, pane, ref;
+      ref = this.pages;
+      for (name in ref) {
+        if (!hasProp.call(ref, name)) continue;
+        page = ref[name];
+        pane = this.view.getPane(name);
+        page.pane = pane;
+        page.name = pane.name;
+        page.spec = pane.spec;
+        page.$pane = page.ready(cname);
+        page.isSvg = this.isElem(page.$pane.find('svg')) && page.pane.name !== 'Flavor';
+        if (!page.isSvg) {
+          pane.$.append(page.$pane);
+        }
+      }
     }
 
     createSpecs(data) {
@@ -164,43 +205,6 @@ UI = (function() {
       this.view.resize();
     }
 
-    addContent(name, object) {
-      this.contents[name] = object;
-    }
-
-    ready() {
-      $('#' + this.htmlId('App')).html(this.html());
-      if (this.navbs != null) {
-        this.navb.ready();
-      }
-      if (UI.hasTocs) {
-        this.tocs.ready();
-      }
-      this.view.ready();
-      //contentReady() called by Ready subscribers
-      //if UI.hasPage
-      //  content = UI.content( 'Study', 'UI' )
-      //  @stream.publish( 'Content', content )
-      this.stream.publish("Ready", "Ready"); // Just notification. No topic
-    }
-
-    contentReady() {
-      var content, name, ref;
-      ref = this.contents;
-      for (name in ref) {
-        if (!hasProp.call(ref, name)) continue;
-        content = ref[name];
-        content.pane = this.view.getPane(name);
-        content.spec = content.pane.spec;
-        content.$pane = content.readyPane();
-        content.$view = content.readyView();
-        content.isSvg = this.isElem(content.$pane.find('svg')) && content.pane.name !== 'Flavor';
-        if (!content.isSvg) {
-          content.pane.$.append(content.$pane);
-        }
-      }
-    }
-
     // Html and jQuery Utilities in UI because it is passed around everywhere
     htmlId(name, type = '', ext = '') {
       return Util.htmlId(name, type, ext);
@@ -268,9 +272,11 @@ UI = (function() {
       obj = {
         name: tname,
         source: source,
-        intent: intent,
-        study: study
+        intent: intent
       };
+      if (study != null) {
+        obj.study = study;
+      }
       UI.verifyTopic(obj, "UI.toTopic()");
       return obj;
     }
@@ -303,8 +309,6 @@ UI = (function() {
 
   UI.hasPack = true;
 
-  UI.hasPage = true;
-
   UI.hasTocs = true;
 
   UI.hasLays = true;
@@ -319,18 +323,18 @@ UI = (function() {
 
   UI.nrow = 36;
 
-  //I.margin  =  { width:1,    height:1,    west:2,   north :1, east :2,   south 2, wStudy:0.5, hStudy:0.5 }
   UI.margin = {
-    width: 0.00,
-    height: 0.00,
-    west: 0.5,
-    north: 0,
-    east: 0.5,
-    south: 0,
+    width: 1,
+    height: 1,
+    west: 2,
+    north: 1,
+    east: 2,
+    south: 2,
     wStudy: 0.5,
     hStudy: 0.5
   };
 
+  //I.margin  =  { width:0.00, height:0.00, west:0.5, north :0, east :0.5, south:0, wStudy:0.5, hStudy:0.5 }
   UI.SelectView = 'SelectView';
 
   UI.SelectPane = 'SelectPane';

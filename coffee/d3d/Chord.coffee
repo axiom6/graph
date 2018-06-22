@@ -1,12 +1,14 @@
 
+`import Util from '../util/Util.js'`
+`import Base from '../ui/Base.js'`
 
-class Chord
+class Chord extends Base
 
   @matrix2 = [[11975, 5871, 8916, 2868], [1951, 10048, 2060, 6171], [8010, 16145, 8090, 8045], [1013, 990, 940, 6907]]
   @range2  = ["#000000", "#FFDD89", "#957244", "#F26223"]
 
-  constructor:( @stream, @ui, @d3d ) ->
-    @ui.addContent( 'Chord', @ )
+  constructor:( stream, ui, @d3d ) ->
+    super( stream, ui, 'Chord' )
     @matrix = [
       [ 0,20,20,20],
       [20, 0,20,80],
@@ -14,7 +16,8 @@ class Chord
       [20,80,20, 0]]
     @range  = ["#FF0000", "#00FF00", "#0000FF", "#888888"]
 
-  readyPane:() =>
+  ready:( cname ) =>
+    Util.noop( cname )
     geo     = @pane.geo
     @graph  = @d3d.createGraph( @pane )
     @g      = @graph.g
@@ -34,9 +37,6 @@ class Chord
     @appendRibbons( @g, @ribbon )
     @graph.$g.css( { "background-color":"white" } )
     @graph.$svg
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Chord</h1>""" )
 
   createChord:() ->
     d3.chord().padAngle(0.05).sortSubgroups(d3.descending)

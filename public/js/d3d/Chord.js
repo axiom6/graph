@@ -1,23 +1,25 @@
-var Chord;
+import Util from '../util/Util.js';
+import Base from '../ui/Base.js';
+var Chord,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
 Chord = (function() {
-  class Chord {
+  class Chord extends Base {
     constructor(stream, ui, d3d) {
-      this.readyPane = this.readyPane.bind(this);
-      this.readyView = this.readyView.bind(this);
+      super(stream, ui, 'Chord');
+      this.ready = this.ready.bind(this);
       this.xcreateGroups = this.xcreateGroups.bind(this);
       // Returns an event handler for fading a given chord group.
       this.xfade = this.xfade.bind(this);
-      this.stream = stream;
-      this.ui = ui;
       this.d3d = d3d;
-      this.ui.addContent('Chord', this);
       this.matrix = [[0, 20, 20, 20], [20, 0, 20, 80], [20, 20, 0, 20], [20, 80, 20, 0]];
       this.range = ["#FF0000", "#00FF00", "#0000FF", "#888888"];
     }
 
-    readyPane() {
+    ready(cname) {
       var geo;
+      boundMethodCheck(this, Chord);
+      Util.noop(cname);
       geo = this.pane.geo;
       this.graph = this.d3d.createGraph(this.pane);
       this.g = this.graph.g;
@@ -39,10 +41,6 @@ Chord = (function() {
         "background-color": "white"
       });
       return this.graph.$svg;
-    }
-
-    readyView() {
-      return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Chord</h1>");
     }
 
     createChord() {
@@ -130,6 +128,7 @@ Chord = (function() {
 
     xcreateGroups() {
       var groups;
+      boundMethodCheck(this, Chord);
       groups = this.g.append("g").selectAll("path").data((d) => {
         return d.groups;
       }).enter().append("path").style("fill", (d) => { 
@@ -191,6 +190,7 @@ Chord = (function() {
     }
 
     xfade(opacity) {
+      boundMethodCheck(this, Chord);
       return (i) => {
         return this.g.selectAll(".chord path").filter((d) => {
           return d.source.index !== i && d.target.index !== i;

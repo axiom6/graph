@@ -1,20 +1,22 @@
-import Vis from '../vis/Vis.js';
-import UI  from '../ui/UI.js';
-var Cluster;
+import Util from '../util/Util.js';
+import Vis  from '../vis/Vis.js';
+import UI   from '../ui/UI.js';
+import Base from '../ui/Base.js';
+var Cluster,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
-Cluster = class Cluster {
+Cluster = class Cluster extends Base {
   constructor(stream, ui, d3d) {
-    this.readyPane = this.readyPane.bind(this);
+    super(stream, ui, 'Cluster');
+    this.ready = this.ready.bind(this);
     this.doCluster = this.doCluster.bind(this);
-    this.readyView = this.readyView.bind(this);
-    this.stream = stream;
-    this.ui = ui;
     this.d3d = d3d;
-    this.ui.addContent('Cluster', this);
   }
 
-  readyPane() {
+  ready(cname) {
     var geo;
+    boundMethodCheck(this, Cluster);
+    Util.noop(cname);
     geo = this.pane.geo;
     this.graph = this.d3d.createGraph(this.pane);
     this.g = this.graph.g;
@@ -29,16 +31,13 @@ Cluster = class Cluster {
   }
 
   doCluster(data, g) {
+    boundMethodCheck(this, Cluster);
     this.root = d3.hierarchy(data);
     this.tree(this.root);
     //@sort( @root )
     this.tree(this.root);
     this.doLink();
     this.doNode();
-  }
-
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Cluster</h1>");
   }
 
   sort(root) {

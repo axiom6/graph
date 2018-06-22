@@ -27,7 +27,7 @@ Pane = class Pane {
 
   ready() {
     this.htmlId = this.ui.htmlId(this.name, 'Pane');
-    this.$ = $(this.createHtml());
+    this.$ = this.createHtml();
     this.view.$view.append(this.$);
     this.hide();
     this.adjacentPanes();
@@ -179,7 +179,55 @@ Pane = class Pane {
   }
 
   createHtml() {
-    return `<div id="${this.htmlId}" class="${this.classPrefix}"></div>`;
+    var $p;
+    $p = $(`<div id="${this.htmlId}" class="${this.classPrefix}"></div>`);
+    this.navArrows($p);
+    return $p;
+  }
+
+  doNav(event) {
+    var name, select;
+    name = $(event.target).attr('data-name');
+    select = UI.toTopic(name, 'Pane.doNav()', UI.SelectPack);
+    this.stream.publish('Select', select);
+  }
+
+  navArrows($p) {
+    var fontvw, leftvw;
+    fontvw = this.toVw(33) + 'vw';
+    leftvw = '25%';
+    if (this.spec['bak'] != null) {
+      this.navIcon('bak', leftvw, fontvw, this.spec['bak'], $p);
+    }
+    if (this.spec['fwd'] != null) {
+      this.navIcon('fwd', leftvw, fontvw, this.spec['fwd'], $p);
+    }
+    if (this.spec['top'] != null) {
+      this.navIcon('top', leftvw, fontvw, this.spec['top'], $p);
+    }
+    if (this.spec['bot'] != null) {
+      this.navIcon('bot', leftvw, fontvw, this.spec['bot'], $p);
+    }
+  }
+
+  navIcon(loc, leftvw, fontvw, name, $p) {
+    var $a;
+    $a = (function() {
+      switch (loc) {
+        case 'bak':
+          return $(`<i style="position:absolute; left:${leftvw}; top: 40%; font-size:${fontvw}; z-index:4;" class="arrow fas fa-arrow-alt-circle-left"  data-name="${name}"></i>`);
+        case 'fwd':
+          return $(`<i style="position:absolute; left:${leftvw}; top: 40%; font-size:${fontvw}; z-index:4;" class="arrow fas fa-arrow-alt-circle-right" data-name="${name}"></i>`);
+        case 'top':
+          return $(`<i style="position:absolute; left:${leftvw}; top:   0; font-size:${fontvw}; z-index:4;" class="arrow fas fa-arrow-alt-circle-up"    data-name="${name}"></i>`);
+        case 'bot':
+          return $(`<i style="position:absolute; left:${leftvw}; bottom:0; font-size:${fontvw}; z-index:4;" class="arrow fas fa-arrow-alt-circle-down"  data-name="${name}"></i>`);
+      }
+    })();
+    $a.on('click', (event) => {
+      return this.doNav(event);
+    });
+    $p.append($a);
   }
 
   scaleReset() {

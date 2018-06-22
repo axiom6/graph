@@ -1,23 +1,24 @@
 import Util from '../util/Util.js';
 import Vis  from '../vis/Vis.js';
 import UI   from'../ui/UI.js';
-var Tree;
+import Base from '../ui/Base.js';
+var Tree,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
-Tree = class Tree {
+Tree = class Tree extends Base {
   constructor(stream, ui, d3d) {
-    this.readyPane = this.readyPane.bind(this);
-    this.readyView = this.readyView.bind(this);
+    super(stream, ui, 'Tree');
+    this.ready = this.ready.bind(this);
     this.doTree = this.doTree.bind(this);
     this.nodeTo = this.nodeTo.bind(this);
     this.linkTo = this.linkTo.bind(this);
-    this.stream = stream;
-    this.ui = ui;
     this.d3d = d3d;
-    this.ui.addContent('Tree', this);
   }
 
-  readyPane() {
+  ready(cname) {
     var geo;
+    boundMethodCheck(this, Tree);
+    Util.noop(cname);
     geo = this.pane.geo;
     this.graph = this.d3d.createGraph(this.pane);
     this.g = this.graph.g;
@@ -33,12 +34,9 @@ Tree = class Tree {
     return this.graph.$svg;
   }
 
-  readyView() {
-    return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Tree</h1>");
-  }
-
   doTree(data, g) {
     var link, node, root;
+    boundMethodCheck(this, Tree);
     root = d3.hierarchy(data);
     this.tree(root);
     link = this.doLinks(root, g);
@@ -66,12 +64,14 @@ Tree = class Tree {
 
   nodeTo(d) {
     var dx, dy;
+    boundMethodCheck(this, Tree);
     [dy, dx] = this.dydx(d);
     return `translate(${dy},${dx})`;
   }
 
   linkTo(d) {
     var dx, dy, px, py;
+    boundMethodCheck(this, Tree);
     [dy, dx] = this.dydx(d);
     [py, px] = this.dydx(d.parent);
     return `M${dy},${dx}C${py + 50},${dx} ${py + 50},${px} ${py},${px}`;

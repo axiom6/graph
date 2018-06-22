@@ -1,16 +1,19 @@
 
-`import Util  from'../util/Util.js'`
-`import Vis   from'../vis/Vis.js'`
-`import Color from'../d3d/Color.js'`
 
-class Link
+`import Util  from '../util/Util.js'`
+`import Vis   from '../vis/Vis.js'`
+`import Color from '../d3d/Color.js'`
+`import Base  from '../ui/Base.js'`
+
+class Link extends Base
 
   @pts1 = [ [200, 40], [200, 60], [200, 80], [200,100], [200,120], [200,140], [200,160] ]
 
-  constructor:( @stream, @ui, @d3d ) ->
-    @ui.addContent( 'Link', @ )
+  constructor:( stream, ui, @d3d ) ->
+    super( stream, ui, 'Link' )
 
-  readyPane:() =>
+  ready:( cname ) =>
+    Util.noop( cname )
     geo       = @pane.geo
     @graph    = @d3d.createGraph( @pane )
     @g        = @graph.g
@@ -21,9 +24,6 @@ class Link
     @da       = 5
     @ornament( 150 )
     @graph.$svg
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Link</h1>""" )
 
   link:( x1, y1, x2, y2, n, fill ) ->
     r  = Math.sqrt( (y2-y1)*(y2-y1) + (x2-x1)*(x2-x1) ) / 2

@@ -20,7 +20,7 @@ D3d = class D3d {
     UI.hasPage = false;
     UI.hasTocs = true;
     UI.hasLays = true;
-    UI.local = "http://localhost:63342/muse/public/"; // Every app needs to change this
+    UI.local = "http://localhost:63342/graph/public/"; // Every app needs to change this
     UI.hosted = "https://jitter-48413.firebaseapp.com/"; // Every app needs to change this
     Util.ready(function() {
       var d3d, infoSpec, stream, subjects, ui;
@@ -45,19 +45,18 @@ D3d = class D3d {
     this.chord = new Chord(this.stream, this.ui, this);
     this.cluster = new Cluster(this.stream, this.ui, this);
     this.link = new Link(this.stream, this.ui, this);
-    this.radar = new Radar(this.stream, this.ui, this, true);
+    this.radar = new Radar(this.stream, this.ui, this, 'Radar');
     this.radial = new Radial(this.stream, this.ui, this);
     this.tree = new Tree(this.stream, this.ui, this);
-    this.Wheelc = new Wheelc(this.stream, this.ui, this, false);
-    this.stream.subscribe("Ready", "D3d", (ready) => {
-      return this.onReady(ready);
+    this.Wheelc = new Wheelc(this.stream, this.ui, this, 'Wheelc');
+    this.stream.subscribe("Ready", "D3d", () => {
+      return this.onReady();
     });
   }
 
-  onReady(ready) {
+  onReady() {
     var select;
-    Util.noop(ready);
-    this.ui.contentReady();
+    this.ui.pagesReady('Graph');
     this.ui.view.hideAll();
     select = UI.toTopic('View', 'D3d', UI.SelectView);
     return this.stream.publish('Select', select);

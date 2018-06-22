@@ -22,7 +22,7 @@ class D3d
     UI.hasPage = false
     UI.hasTocs = true
     UI.hasLays = true
-    UI.local   = "http://localhost:63342/muse/public/"   # Every app needs to change this
+    UI.local   = "http://localhost:63342/graph/public/"   # Every app needs to change this
     UI.hosted  = "https://jitter-48413.firebaseapp.com/" # Every app needs to change this
     Util.ready ->
       subjects = ["Ready","Select","Test"]
@@ -39,15 +39,14 @@ class D3d
     @chord   = new Chord(   @stream, @ui, @ )
     @cluster = new Cluster( @stream, @ui, @ )
     @link    = new Link(    @stream, @ui, @ )
-    @radar   = new Radar(   @stream, @ui, @, true  )
+    @radar   = new Radar(   @stream, @ui, @, 'Radar'  )
     @radial  = new Radial(  @stream, @ui, @ )
     @tree    = new Tree(    @stream, @ui, @ )
-    @Wheelc  = new Wheelc(  @stream, @ui, @, false )
-    @stream.subscribe( "Ready", "D3d", (ready) => @onReady( ready ) )
+    @Wheelc  = new Wheelc(  @stream, @ui, @, 'Wheelc' )
+    @stream.subscribe( "Ready", "D3d", () => @onReady() )
 
-  onReady:( ready ) =>
-    Util.noop( ready )
-    @ui.contentReady()
+  onReady:() =>
+    @ui.pagesReady( 'Graph' )
     @ui.view.hideAll(  )
     select = UI.toTopic( 'View', 'D3d', UI.SelectView )
     @stream.publish( 'Select', select )

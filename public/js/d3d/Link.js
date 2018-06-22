@@ -1,22 +1,23 @@
-import Util  from'../util/Util.js';
-import Vis   from'../vis/Vis.js';
-import Color from'../d3d/Color.js';
-var Link;
+import Util  from '../util/Util.js';
+import Vis   from '../vis/Vis.js';
+import Color from '../d3d/Color.js';
+import Base  from '../ui/Base.js';
+var Link,
+  boundMethodCheck = function(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new Error('Bound instance method accessed before binding'); } };
 
 Link = (function() {
-  class Link {
+  class Link extends Base {
     constructor(stream, ui, d3d) {
-      this.readyPane = this.readyPane.bind(this);
-      this.readyView = this.readyView.bind(this);
+      super(stream, ui, 'Link');
+      this.ready = this.ready.bind(this);
       this.strokeOpp = this.strokeOpp.bind(this);
-      this.stream = stream;
-      this.ui = ui;
       this.d3d = d3d;
-      this.ui.addContent('Link', this);
     }
 
-    readyPane() {
+    ready(cname) {
       var geo;
+      boundMethodCheck(this, Link);
+      Util.noop(cname);
       geo = this.pane.geo;
       this.graph = this.d3d.createGraph(this.pane);
       this.g = this.graph.g;
@@ -27,10 +28,6 @@ Link = (function() {
       this.da = 5;
       this.ornament(150);
       return this.graph.$svg;
-    }
-
-    readyView() {
-      return $("<h1 style=\" display:grid; justify-self:center; align-self:center; \">Link</h1>");
     }
 
     link(x1, y1, x2, y2, n, fill) {
@@ -91,6 +88,7 @@ Link = (function() {
 
     strokeOpp(ang) {
       var hue;
+      boundMethodCheck(this, Link);
       hue = 180 - ang;
       if (hue < 0) {
         hue = 360 + hue;

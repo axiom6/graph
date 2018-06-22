@@ -2,13 +2,15 @@
 `import Util from '../util/Util.js'`
 `import Vis  from '../vis/Vis.js'`
 `import UI   from'../ui/UI.js'`
+`import Base from '../ui/Base.js'`
 
-class Tree
+class Tree extends Base
 
-  constructor:( @stream, @ui, @d3d ) ->
-    @ui.addContent( 'Tree', @ )
+  constructor:( stream, ui, @d3d ) ->
+    super( stream, ui, 'Tree' )
 
-  readyPane:() =>
+  ready:( cname ) =>
+    Util.noop( cname )
     geo     = @pane.geo
     @graph  = @d3d.createGraph( @pane )
     @g      = @graph.g
@@ -20,9 +22,6 @@ class Tree
     @tree.size([ @h, @w ] )
     UI.readJSON( 'json/Prin.json', (data) => @doTree(data,@g) )
     @graph.$svg
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Tree</h1>""" )
 
   doTree:( data, g ) =>
     root = d3.hierarchy( data )

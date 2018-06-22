@@ -1,13 +1,16 @@
 
-`import Vis from '../vis/Vis.js'`
-`import UI  from '../ui/UI.js'`
+`import Util from '../util/Util.js'`
+`import Vis  from '../vis/Vis.js'`
+`import UI   from '../ui/UI.js'`
+`import Base from '../ui/Base.js'`
 
-class Cluster
+class Cluster extends Base
 
-  constructor:( @stream, @ui, @d3d ) ->
-    @ui.addContent( 'Cluster', @ )
+  constructor:( stream, ui, @d3d ) ->
+    super( stream, ui, 'Cluster' )
 
-  readyPane:() =>
+  ready:( cname ) =>
+    Util.noop( cname )
     geo    = @pane.geo
     @graph = @d3d.createGraph( @pane )
     @g     = @graph.g
@@ -27,9 +30,6 @@ class Cluster
     @doLink()
     @doNode()
     return
-
-  readyView:() =>
-    $("""<h1 style=" display:grid; justify-self:center; align-self:center; ">Cluster</h1>""" )
 
   sort:( root ) ->
     root.sort(  (a, b) -> (a.height - b.height) || a.id.localeCompare(b.id) )

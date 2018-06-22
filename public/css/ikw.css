@@ -738,25 +738,25 @@
   vertical-align: middle;
   font-size: 20px;
 }
-.ikw-group {
+.ikw-pack {
   position: absolute;
   background: #0f2424;
   z-index: 1;
   border-radius: 24px;
 }
-.ikw-group-icon {
+.ikw-pack-icon {
   position: absolute;
   display: table;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
 }
-.ikw-group-icon:hover {
+.ikw-pack-icon:hover {
   cursor: pointer;
   background: #240f1a;
   color: #f7edf2;
   border-radius: 8px;
 }
-.ikw-group-icon > i {
+.ikw-pack-icon > i {
   display: table-cell;
   text-align: center;
   vertical-align: middle;
