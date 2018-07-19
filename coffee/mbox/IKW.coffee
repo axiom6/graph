@@ -85,6 +85,7 @@ class IKW
   conduit:( practice, dir, x, y, z, s, hsv, pipv, pipc, pipb, pipe, pipp ) ->
     q = s / 2
     [beg,end] = @build.connectName( practice, dir )
+    console.log( 'Conduit', beg, end, [[x-q,y,z-q],[x+q,y,z-q],[x+q,y,z+q],[x-q,y,z+q]] )
     pipv.push( [[x-q,y,z-q],[x+q,y,z-q],[x+q,y,z+q],[x-q,y,z+q]] )
     pipc.push( Vis.toRgbHsv( hsv[0], hsv[1], hsv[2], true ) )
     pipb.push( beg )
@@ -234,9 +235,9 @@ class IKW
     }
 
     sprac = 10
-    for plane   in [ {name:'Information',z:105}, {name:'Augment',z:75},     {name:'Knowledge',z:45}, {name:'Wisdom',z:15} ] #
-      for row   in [ {name:'Learn',      y:100}, {name:'Do',         y:60}, {name:'Share',    y: 20} ]
-        for col in [ {name:'Embrace',    x: 20}, {name:'Innovate',   x:60}, {name:'Encourage',x:100} ]
+    for plane   in [ {name:'Information',z:100}, {name:'Knowledge',z:60}, {name:'Wisdom',   z: 20} ] #
+      for row   in [ {name:'Learn',      y:100}, {name:'Do',       y:60}, {name:'Share',    y: 20} ]
+        for col in [ {name:'Embrace',    x: 20}, {name:'Innovate', x:60}, {name:'Encourage',x:100} ]
           x = col.x
           y = row.y
           z = plane.z
@@ -259,11 +260,11 @@ class IKW
         for col in [ {name:'Embrace', x:20, hsv:{h:210,s:60,v:90} }, {name:'Innovate', x:60, hsv:{h:60,s:60,v:90} }, {name:'Encourage',x:100, hsv:{h:255,s:60,v:90} } ]
           practice = @build.getPractice( plane.name, flo.rowName, col.name )
           @flow( practice, 'south', col.x, flo.y, plane.z, sprac, practice.hsv, a.flow, a.floc, a.flob, a.floe, a.flop )
-    for pla     in [ {name:'Information', z: 90}, {name:'Augment',    z:60}, {name:'Knowledge', z: 30} ] #
+    for pla     in [ {name:'Information', z: 80}, {name:'Knowledge',  z:40} ] #
       for row   in [ {name:'Learn',       y:100}, {name:'Do',         y:60}, {name:'Share',     y: 20} ]
         for col in [ {name:'Embrace',     x: 20}, {name:'Innovate',   x:60}, {name:'Encourage', x:100} ]
           practice = @build.getPractice( pla.name, row.name, col.name )
-          @conduit( practice, 'next', col.x, row.y, pla.z, sprac, practice.hsv, a.pipv, a.pipc, a.pipb, a.pipe, a.pipp )
+          @conduit( practice, 'next', col.x, row.y, pla.z, 20, practice.hsv, a.pipv, a.pipc, a.pipb, a.pipe, a.pipp )
     a # All the arrays
 
   viewArrays:( view ) =>

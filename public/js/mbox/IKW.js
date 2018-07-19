@@ -118,6 +118,7 @@ IKW = class IKW {
     var beg, end, q;
     q = s / 2;
     [beg, end] = this.build.connectName(practice, dir);
+    console.log('Conduit', beg, end, [[x - q, y, z - q], [x + q, y, z - q], [x + q, y, z + q], [x - q, y, z + q]]);
     pipv.push([[x - q, y, z - q], [x + q, y, z - q], [x + q, y, z + q], [x - q, y, z + q]]);
     pipc.push(Vis.toRgbHsv(hsv[0], hsv[1], hsv[2], true));
     pipb.push(beg);
@@ -418,19 +419,15 @@ IKW = class IKW {
     ref = [
       {
         name: 'Information',
-        z: 105
-      },
-      {
-        name: 'Augment',
-        z: 75
+        z: 100
       },
       {
         name: 'Knowledge',
-        z: 45
+        z: 60
       },
       {
         name: 'Wisdom',
-        z: 15
+        z: 20
       }
     ];
     
@@ -575,15 +572,11 @@ IKW = class IKW {
     ref6 = [
       {
         name: 'Information',
-        z: 90
-      },
-      {
-        name: 'Augment',
-        z: 60
+        z: 80
       },
       {
         name: 'Knowledge',
-        z: 30
+        z: 40
       }
     ];
     
@@ -622,7 +615,7 @@ IKW = class IKW {
         for (m1 = 0, len9 = ref8.length; m1 < len9; m1++) {
           col = ref8[m1];
           practice = this.build.getPractice(pla.name, row.name, col.name);
-          this.conduit(practice, 'next', col.x, row.y, pla.z, sprac, practice.hsv, a.pipv, a.pipc, a.pipb, a.pipe, a.pipp);
+          this.conduit(practice, 'next', col.x, row.y, pla.z, 20, practice.hsv, a.pipv, a.pipc, a.pipb, a.pipe, a.pipp);
         }
       }
     }

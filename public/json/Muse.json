@@ -3,9 +3,20 @@
   "Planes":{
     "Info":{
       "name":"Information","intent":"SelectPlane","nrow":36,"ncol":36,"groups":{}, "book":"doc/book/muse/4.Information/",
-      "prev":"", "next":"Augment",
+      "prev":"", "next":"Knowledge",
       "cube":   { "z":100, "zc":90 },
       "icon":"fa-link","matter":"Solid","water":"Ice","cynefin":"Simple"
+    },
+    "Know":{
+      "name":"Knowledge","intent":"SelectPlane","nrow":36,"ncol":36,"groups":{}, "book":"doc/book/muse/6.Knowledge/",
+      "prev":"Information", "next":"Wisdom",
+      "cube":   { "z":60, "zc":30 },
+      "icon":"fa-link","matter":"Liquid","water":"Water","cynefin":"Complicated"
+    },
+    "Wise":{
+      "name":"Wisdom","intent":"SelectPlane","nrow":36,"ncol":36,"groups":{}, "book":"doc/book/muse/7.Wisdom/",
+      "prev":"Knowledge", "next":"",
+      "icon":"fa-link","matter":"Crystal","water":"Snowflake","cynefin":"Complex"
     },
     "Augm":{
       "name":"Augment","intent":"SelectPlane","nrow":36,"ncol":36,"groups":{}, "book":"doc/book/muse/4.Augment/",
@@ -20,20 +31,9 @@
       "cube":   { "z":75, "zc":60 },
       "icon":"fa-link","matter":"SolidLiquidPhase","water":"IceCubes","cynefin":"Elaborate"
     },
-    "Know":{
-      "name":"Knowledge","intent":"SelectPlane","nrow":36,"ncol":36,"groups":{}, "book":"doc/book/muse/6.Knowledge/",
-      "prev":"Augment", "next":"Wisdom",
-      "cube":   { "z":60, "zc":30 },
-      "icon":"fa-link","matter":"Liquid","water":"Water","cynefin":"Complicated"
-    },
-    "Wise":{
-      "name":"Wisdom","intent":"SelectPlane","nrow":36,"ncol":36,"groups":{}, "book":"doc/book/muse/7.Wisdom/",
-      "prev":"Knowledge", "next":"",
-      "icon":"fa-link","matter":"Crystal","water":"Snowflake","cynefin":"Complex"
-    },
     "Hues":{
       "name":"Hues","intent":"SelectPlane","nrow":36,"ncol":36, "book":"",
-      "prev":"Wise",   "next":"",
+      "prev":"Wisdom",   "next":"",
       "cube": { "z":0, "zc":0 },
       "icon":"fa-link","matter":"Gas","water":"Vapor","cynefin":"Chaotic"
     }

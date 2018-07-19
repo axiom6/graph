@@ -55,8 +55,9 @@ UI = (function() {
       }
     }
 
-    pagesReady(cname) {
+    pagesReady(cname, append = true) {
       var name, page, pane, ref;
+      console.log('UI.pagesReady()', this.pages);
       ref = this.pages;
       for (name in ref) {
         if (!hasProp.call(ref, name)) continue;
@@ -65,10 +66,14 @@ UI = (function() {
         page.pane = pane;
         page.name = pane.name;
         page.spec = pane.spec;
-        page.$pane = page.ready(cname);
-        page.isSvg = this.isElem(page.$pane.find('svg')) && page.pane.name !== 'Flavor';
-        if (!page.isSvg) {
-          pane.$.append(page.$pane);
+        if (append) {
+          page.$pane = page.ready(cname);
+          page.isSvg = this.isElem(page.$pane.find('svg')) && page.pane.name !== 'Flavor';
+          if (!page.isSvg) {
+            pane.$.append(page.$pane);
+          }
+        } else {
+          page.ready(cname);
         }
       }
     }
