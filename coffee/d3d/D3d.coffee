@@ -17,6 +17,8 @@
 
 class D3d
 
+  D3d.specs = UI.pracJSON( "json/D3ds.json" )
+
   @init = () ->
     UI.hasPack = false
     UI.hasPage = false
@@ -28,9 +30,9 @@ class D3d
       subjects = ["Ready","Select","Test"]
       infoSpec = { subscribe:true, publish:true, subjects:subjects }
       stream   = new Stream( subjects, infoSpec )
-      ui       = new UI( stream, "json/D3ds.json", 'D3d' )
+      ui       = new UI( stream, D3d.specs )
       d3d      = new D3d( stream, ui )
-      Util.noop( d3d )
+      d3d.ready()
       return
     return
 
@@ -43,9 +45,8 @@ class D3d
     @radial  = new Radial(  @stream, @ui, @ )
     @tree    = new Tree(    @stream, @ui, @ )
     @Wheelc  = new Wheelc(  @stream, @ui, @, 'Wheelc' )
-    @stream.subscribe( "Ready", "D3d", () => @onReady() )
 
-  onReady:() =>
+  ready:() =>
     @ui.pagesReady( 'Graph' )
     @ui.view.hideAll(  )
     select = UI.toTopic( 'View', 'D3d', UI.SelectView )
