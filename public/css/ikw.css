@@ -8,14 +8,14 @@
 }
 .mixin-hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .mixin-hover-tocs {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
 }
 .mixin-border {
   border: black solid 1px;
@@ -73,7 +73,7 @@
   top: 0;
   width: 170px;
   height: 48px;
-  background-image: linear-gradient(to right, #1f4747, #2e6b6b);
+  background-image: linear-gradient(to right, hsl(180, 40%, 20%), hsl(180, 40%, 30%));
   color: white;
   font-size: 1.3em;
 }
@@ -83,7 +83,7 @@
   top: 0;
   right: 32px;
   height: 48px;
-  background-image: linear-gradient(to bottom, #1f4747, #2e6b6b);
+  background-image: linear-gradient(to bottom, hsl(180, 40%, 20%), hsl(180, 40%, 30%));
 }
 .ikw-find {
   position: absolute;
@@ -91,7 +91,7 @@
   top: 0;
   width: 32px;
   height: 48px;
-  background-image: linear-gradient(to left, #1f4747, #2e6b6b);
+  background-image: linear-gradient(to left, hsl(180, 40%, 20%), hsl(180, 40%, 30%));
 }
 .ikw-tocs {
   position: absolute;
@@ -99,7 +99,7 @@
   top: 0;
   width: 170px;
   bottom: 0;
-  background-image: linear-gradient(to right, #1f4747, #2e6b6b);
+  background-image: linear-gradient(to right, hsl(180, 40%, 20%), hsl(180, 40%, 30%));
   font-family: Arial, Helvetica, sans-serif;
 }
 .ikw-view {
@@ -108,7 +108,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background-color: #173636;
+  background-color: hsl(180, 40%, 15%);
   z-index: 1;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -118,7 +118,7 @@
   top: 0;
   width: 32px;
   bottom: 32px;
-  background-image: linear-gradient(to left, #1f4747, #2e6b6b);
+  background-image: linear-gradient(to left, hsl(180, 40%, 20%), hsl(180, 40%, 30%));
   font-family: Arial, Helvetica, sans-serif;
 }
 .ikw-pref {
@@ -127,7 +127,7 @@
   bottom: 0;
   width: 170px;
   height: 32px;
-  background-image: linear-gradient(to right, #1f4747, #2e6b6b);
+  background-image: linear-gradient(to right, hsl(180, 40%, 20%), hsl(180, 40%, 30%));
 }
 .ikw-foot {
   position: absolute;
@@ -135,7 +135,7 @@
   bottom: 0;
   right: 32px;
   height: 32px;
-  background-image: linear-gradient(to top, #1f4747, #2e6b6b);
+  background-image: linear-gradient(to top, hsl(180, 40%, 20%), hsl(180, 40%, 30%));
 }
 .ikw-trak {
   position: absolute;
@@ -143,10 +143,10 @@
   bottom: 0;
   width: 32px;
   height: 32px;
-  background-image: linear-gradient(to left, #1f4747, #2e6b6b);
+  background-image: linear-gradient(to left, hsl(180, 40%, 20%), hsl(180, 40%, 30%));
 }
 .ikw-part {
-  background-color: #1f4747;
+  background-color: hsl(180, 40%, 20%);
   position: absolute;
   font-family: Arial, Helvetica, sans-serif;
   z-index: 2;
@@ -160,7 +160,7 @@
   overflow: hidden;
 }
 .ikw-pane {
-  background-color: #1f4747;
+  background-color: hsl(180, 40%, 20%);
   position: absolute;
   font-family: Arial, Helvetica, sans-serif;
   z-index: 2;
@@ -253,7 +253,7 @@
   top: 33%;
   width: 33%;
   height: 33%;
-  background-color: #3d8f8f;
+  background-color: hsl(180, 40%, 40%);
 }
 .ikw-pane-connect-east {
   position: absolute;
@@ -261,7 +261,7 @@
   top: 33%;
   width: 33%;
   height: 33%;
-  background-color: #3d8f8f;
+  background-color: hsl(180, 40%, 40%);
 }
 .ikw-pane-connect-north {
   position: absolute;
@@ -269,7 +269,7 @@
   top: 0;
   width: 33%;
   height: 33%;
-  background-color: #3d8f8f;
+  background-color: hsl(180, 40%, 40%);
 }
 .ikw-pane-connect-south {
   position: absolute;
@@ -277,7 +277,7 @@
   top: 66%;
   width: 33%;
   height: 33%;
-  background-color: #3d8f8f;
+  background-color: hsl(180, 40%, 40%);
 }
 .ikw-pane-connect-prev {
   position: absolute;
@@ -285,7 +285,7 @@
   top: 33%;
   width: 33%;
   height: 33%;
-  background-color: #4db2b3;
+  background-color: hsl(180, 40%, 50%);
 }
 .ikw-pane-connect-next {
   position: absolute;
@@ -293,7 +293,7 @@
   top: 33%;
   width: 33%;
   height: 33%;
-  background-color: #4db2b3;
+  background-color: hsl(180, 40%, 50%);
 }
 .ikw-pane-studies {
   position: absolute;
@@ -522,7 +522,7 @@
 }
 .ikw-pane-study-text {
   text-align: center;
-  line-height: 1.0;
+  line-height: 1;
 }
 .ikw-pane-connect > div > ul {
   padding: 0 0 0 20px;
@@ -543,13 +543,13 @@
 }
 .ikw-pane-text {
   text-align: center;
-  line-height: 1.0;
+  line-height: 1;
   margin-top: 4px;
 }
 .ikw-pane-center-div:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-pane-study-ul {
@@ -568,11 +568,11 @@
   display: inline;
   padding-left: 0.3em;
   font-size: 120%;
-  line-height: 1.0;
+  line-height: 1;
 }
 .ikw-pane-topic-ul {
   list-style: none;
-  margin-left: 0.0em;
+  margin-left: 0em;
   line-height: 1.2;
   margin-top: 0;
 }
@@ -614,7 +614,7 @@
 }
 .ikw-pane-item-lib {
   font-weight: 900;
-  font-size: 1.0em;
+  font-size: 1em;
 }
 .ikw-pane-item-icon {
   text-align: left;
@@ -623,7 +623,7 @@
 .ikw-pane-item-text {
   text-align: left;
   display: inline;
-  padding-left: 0.0em;
+  padding-left: 0em;
 }
 .ikw-pane-hex {
   position: absolute;
@@ -641,7 +641,7 @@
   position: absolute;
   z-index: 2;
   font-size: 16px;
-  color: #4db2b3;
+  color: hsl(180, 40%, 50%);
   display: table;
 }
 .ikw-pane-flow > i {
@@ -651,15 +651,15 @@
 }
 .ikw-pane-flow:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-pane-convey {
   position: absolute;
   z-index: 2;
   font-size: 16px;
-  color: #4db2b3;
+  color: hsl(180, 40%, 50%);
   display: table;
 }
 .ikw-pane-convey > i {
@@ -669,15 +669,15 @@
 }
 .ikw-pane-convey:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-pane-cycle {
   position: absolute;
   z-index: 2;
   font-size: 16px;
-  color: #4db2b3;
+  color: hsl(180, 40%, 50%);
   display: table;
 }
 .ikw-pane-cycle > i {
@@ -687,8 +687,8 @@
 }
 .ikw-pane-cycle:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-row {
@@ -697,7 +697,7 @@
 }
 .ikw-row-icon {
   position: absolute;
-  background-color: #0f2424;
+  background-color: hsl(180, 40%, 10%);
   display: table;
   font-family: Arial, Helvetica, sans-serif;
   border-top-left-radius: 16px;
@@ -706,8 +706,8 @@
 }
 .ikw-row-icon:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-row-icon > i {
@@ -728,8 +728,8 @@
 }
 .ikw-col-icon:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-col-icon > i {
@@ -740,7 +740,7 @@
 }
 .ikw-pack {
   position: absolute;
-  background: #0f2424;
+  background: hsl(180, 40%, 10%);
   z-index: 1;
   border-radius: 24px;
 }
@@ -752,8 +752,8 @@
 }
 .ikw-pack-icon:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-pack-icon > i {
@@ -770,8 +770,8 @@
 }
 .ikw-all-icon:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-all-icon > i {
@@ -789,56 +789,56 @@
 }
 .ikw-togg:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 [id$="-north"] {
   position: absolute;
   z-index: 2;
   font-size: 16px;
-  color: #4db2b3;
+  color: hsl(180, 40%, 50%);
 }
 [id$="-north"]:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 [id$="-south"] {
   position: absolute;
   z-index: 2;
   font-size: 16px;
-  color: #4db2b3;
+  color: hsl(180, 40%, 50%);
 }
 [id$="-south"]:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 [id$="-east"] {
   position: absolute;
   z-index: 2;
   font-size: 16px;
-  color: #4db2b3;
+  color: hsl(180, 40%, 50%);
 }
 [id$="-east"]:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 [id$="-west"] {
   position: absolute;
   z-index: 2;
   font-size: 16px;
-  color: #4db2b3;
+  color: hsl(180, 40%, 50%);
 }
 [id$="-west"]:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-convey {
@@ -849,13 +849,13 @@
   position: absolute;
   display: table;
   font-family: Arial, Helvetica, sans-serif;
-  color: #4db2b3;
+  color: hsl(180, 40%, 50%);
   z-index: 2;
 }
 .ikw-convey-icon:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-convey-icon > i {
@@ -872,13 +872,13 @@
   position: absolute;
   display: table;
   font-family: Arial, Helvetica, sans-serif;
-  color: #4db2b3;
+  color: hsl(180, 40%, 50%);
   z-index: 2;
 }
 .ikw-flow-icon:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .ikw-flow-icon > i {
@@ -922,7 +922,7 @@
   vertical-align: bottom;
 }
 .ikw-info-btn {
-  background-color: #2e6b6b;
+  background-color: hsl(180, 40%, 30%);
   position: absolute;
   left: 1%;
   top: 1%;
@@ -942,8 +942,8 @@
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   position: absolute;
-  left: 40.0%;
-  top: 40.0%;
+  left: 40%;
+  top: 40%;
   width: 20%;
   height: 20%;
 }
@@ -970,7 +970,7 @@
   height: 29%;
 }
 .ikw-practice-design {
-  background-color: #2e6b6b;
+  background-color: hsl(180, 40%, 30%);
   position: absolute;
   left: 3%;
   top: 0;
@@ -980,7 +980,7 @@
   border-radius: 24px;
 }
 .ikw-practice-acquire {
-  background-color: #2e6b6b;
+  background-color: hsl(180, 40%, 30%);
   position: absolute;
   left: 35%;
   top: 0;
@@ -990,7 +990,7 @@
   border-radius: 24px;
 }
 .ikw-practice-sample {
-  background-color: #2e6b6b;
+  background-color: hsl(180, 40%, 30%);
   position: absolute;
   left: 67%;
   top: 0;
@@ -1018,7 +1018,7 @@
   height: 29%;
 }
 .ikw-practice-analyze {
-  background-color: #2e6b6b;
+  background-color: hsl(180, 40%, 30%);
   position: absolute;
   left: 3%;
   top: 0;
@@ -1028,7 +1028,7 @@
   border-radius: 24px;
 }
 .ikw-practice-model {
-  background-color: #2e6b6b;
+  background-color: hsl(180, 40%, 30%);
   position: absolute;
   left: 35%;
   top: 0;
@@ -1038,7 +1038,7 @@
   border-radius: 24px;
 }
 .ikw-practice-visualize {
-  background-color: #2e6b6b;
+  background-color: hsl(180, 40%, 30%);
   position: absolute;
   left: 67%;
   top: 0;
@@ -1066,7 +1066,7 @@
   height: 29%;
 }
 .ikw-practice-archive {
-  background-color: #2e6b6b;
+  background-color: hsl(180, 40%, 30%);
   position: absolute;
   left: 3%;
   top: 0;
@@ -1076,7 +1076,7 @@
   border-radius: 24px;
 }
 .ikw-practice-publish {
-  background-color: #2e6b6b;
+  background-color: hsl(180, 40%, 30%);
   position: absolute;
   left: 35%;
   top: 0;
@@ -1086,7 +1086,7 @@
   border-radius: 24px;
 }
 .ikw-practice-compare {
-  background-color: #2e6b6b;
+  background-color: hsl(180, 40%, 30%);
   position: absolute;
   left: 67%;
   top: 0;
@@ -1249,7 +1249,7 @@
   background-color: transparent;
   position: absolute;
   left: 33.3%;
-  top: 24.0%;
+  top: 24%;
   width: 33.3%;
   height: 33.3%;
   color: white;
@@ -1284,7 +1284,7 @@
 .ikw-study-2c {
   background-color: transparent;
   position: absolute;
-  left: 57.0%;
+  left: 57%;
   top: 41.2%;
   width: 33.3%;
   height: 33.3%;
@@ -1303,7 +1303,7 @@
   background-color: transparent;
   position: absolute;
   left: 33.3%;
-  top: 60.0%;
+  top: 60%;
   width: 33.3%;
   height: 33.3%;
   color: white;

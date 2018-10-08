@@ -64,9 +64,9 @@ IKW = class IKW {
       range: range,
       scale: scale
     });
-    this.coord.axesXYZ(view, 8, 0xFFFFFF);
-    this.coord.gridXYZ(view, 4, 0xFFFFFF, divide[1], 0.7, '10');
-    this.coord.tickXYZ(view, 64, 0xFFFFFF, divide[2], 2);
+    // @coord.axesXYZ( view,  8, 0xFFFFFF )
+    // @coord.gridXYZ( view,  4, 0xFFFFFF, divide[1], 0.7, '10' )
+    // @coord.tickXYZ( view, 64, 0xFFFFFF, divide[2], 2 )
     return view;
   }
 

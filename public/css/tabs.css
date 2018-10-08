@@ -8,14 +8,14 @@
 }
 .mixin-hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .mixin-hover-tocs {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
 }
 .mixin-border {
   border: black solid 1px;
@@ -71,7 +71,7 @@
 .tabs > ul {
   display: inline;
   list-style: none none;
-  font-size: 1.0em;
+  font-size: 1em;
   margin: 0;
   padding-left: 0;
 }
@@ -85,21 +85,21 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  background: #8f3d66;
+  background: hsl(330, 40%, 40%);
   color: #FFF;
 }
 .tabs > ul > li:hover {
   cursor: pointer;
-  background: #240f1a;
-  color: #f7edf2;
+  background: hsl(330, 40%, 10%);
+  color: hsl(330, 40%, 95%);
   border-radius: 8px;
 }
 .tabs > ul > .ton {
-  background: #8f3d66;
+  background: hsl(330, 40%, 40%);
   color: yellow;
 }
 .tabs > .ctn {
-  background: #8f3d66;
+  background: hsl(330, 40%, 40%);
   position: absolute;
   left: 0;
   top: 21px;

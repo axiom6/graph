@@ -39,9 +39,9 @@ class IKW
   museCartesian:( range=[[0,120],[0,120],[0,120]], scale=[2,2,2], divide=[12,12] ) ->
     @mathbox.camera( { position:[3,3,3], proxy:true } )
     view  = @mathbox.cartesian( { range:range, scale:scale } )
-    @coord.axesXYZ( view,  8, 0xFFFFFF )
-    @coord.gridXYZ( view,  4, 0xFFFFFF, divide[1], 0.7, '10' )
-    @coord.tickXYZ( view, 64, 0xFFFFFF, divide[2], 2 )
+    # @coord.axesXYZ( view,  8, 0xFFFFFF )
+    # @coord.gridXYZ( view,  4, 0xFFFFFF, divide[1], 0.7, '10' )
+    # @coord.tickXYZ( view, 64, 0xFFFFFF, divide[2], 2 )
     view
 
   inIAKW:( plane ) ->
